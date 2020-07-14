@@ -8,44 +8,73 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
-
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
-
+        self.vertices[vertex_id] = set()
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
-
+        self.vertices[v1].add(v2)
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
-
+        return self.vertices[vertex_id]
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create an empty queue and enqueue the starting vertex ID
+        # Create an empy Set to store visited vertices
+        # While the queue is not empty...
+            # Dequeue the first vertex
+            # If that vertex has not been visited...
+                # Mark as visited
+                # Then add all of its neighbors to the back of the queue
+        q = Queue()
+        q.enqueue(starting_vertex)
+        visited = set()
+        while q.size() > 0:
+            current_node = q.dequeue()
+            if current_node not in visited:
+                print(current_node)
+                visited.add(current_node)
+                for neighbor in self.vertices[current_node]:
+                    q.enqueue(neighbor)
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        #create a new stack
+        s = Stack()
+        #set for visited
+        visited = set()
+        #add start_node to the stack
+        s.push(starting_vertex)
+        #while stack is not empty
+        while s.size() > 0:
+            #assign node to stack.pop()
+            current_node = s.pop()
+            #if node is not in visited set
+            if current_node not in visited:
+                print(current_node)
+                #add current node to visited set 
+                visited.add(current_node)
+                #for each child in current_node
+                for next_node in self.vertices[current_node]:
+                    #add each child to the stack
+                    s.push(next_node)
 
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
-
         This should be done using recursion.
         """
         pass  # TODO
@@ -71,7 +100,6 @@ class Graph:
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
-
         This should be done using recursion.
         """
         pass  # TODO
