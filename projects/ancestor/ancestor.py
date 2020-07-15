@@ -66,7 +66,7 @@ def earliest_ancestor(ancestors, starting_node):
             for parent in parents:
                 new_path = path + [parent]
                 s.push(new_path)
-    if longest_path:
+    if len(longest_path) > 1:
         return longest_path[-1]
     else:
          return -1
