@@ -69,24 +69,12 @@ while len(traversal_graph) < len(room_graph):
         for x in player.current_room.get_exits():
             if traversal_graph[player.current_room.id][x] == '?':
                 valid_directions.append(x)
-        # print(valid_directions)
-
         direction = random.choice(valid_directions)
         
-        
         prev_room = player.current_room
-        
         player.travel(direction)
-        # print(direction)
-
         traversal_graph[prev_room.id][direction] = player.current_room.id
-        
-        # traversal_graph[player.current_room.id][opposite(direction)] = prev_room.id
-
         traversal_path.append(direction)
-
-        # print(traversal_graph)
-
     
     else:
         queue = Queue()
