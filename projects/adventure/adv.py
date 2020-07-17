@@ -38,25 +38,30 @@ world.print_rooms()
 
 player = Player(world.starting_room)
 
-def opposite(direction):
-    if direction == 'n':
-        return 's'
-    elif direction == 's':
-        return 'n'
-    elif direction == 'w':
-        return 'e'
-    else:
-        return 'w'
+# def opposite(direction):
+#     if direction == 'n':
+#         return 's'
+#     elif direction == 's':
+#         return 'n'
+#     elif direction == 'w':
+#         return 'e'
+#     else:
+#         return 'w'
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-traversal_graph = {
-    0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}
-}
+traversal_graph = {}
+
 
 
 while len(traversal_graph) < len(room_graph):
+    # print(player.current_room.id)
+
+    if player.current_room.id not in traversal_graph:
+            traversal_graph[player.current_room.id] = {}
+            for exits in player.current_room.get_exits():
+                traversal_graph[player.current_room.id][exits] = '?'
 
     if '?' in traversal_graph[player.current_room.id].values():        
         valid_directions = []
@@ -64,17 +69,24 @@ while len(traversal_graph) < len(room_graph):
         for x in player.current_room.get_exits():
             if traversal_graph[player.current_room.id][x] == '?':
                 valid_directions.append(x)
+        # print(valid_directions)
 
         direction = random.choice(valid_directions)
+        
+        
         prev_room = player.current_room
         
         player.travel(direction)
+        # print(direction)
 
         traversal_graph[prev_room.id][direction] = player.current_room.id
-        if player.current_room.id not in traversal_graph:
-            traversal_graph[player.current_room.id] = {'n': '?', 's': '?', 'w': '?', 'e': '?'}
-        traversal_graph[player.current_room.id][opposite(direction)] = prev_room.id
+        
+        # traversal_graph[player.current_room.id][opposite(direction)] = prev_room.id
+
         traversal_path.append(direction)
+
+        # print(traversal_graph)
+
     
     else:
         queue = Queue()
@@ -92,10 +104,13 @@ while len(traversal_graph) < len(room_graph):
                 # print(current_room)
 
                 if '?' in traversal_graph[current_room].values():
+                    ##-1 to stay in range
                     for room in range(len(path) - 1):
-                        direction = ''
+                        # direction = ''
                         for key, value in traversal_graph[path[room]].items():
-                            if value == path[room + 1]:                                
+                            if value == path[room + 1]: 
+                                ##plus one otherwise it causes an infinite loop
+                                # because it doesnt have a direction or room to go to next                               
                                 direction = key
                         player.travel(direction)
                         traversal_path.append(direction)
