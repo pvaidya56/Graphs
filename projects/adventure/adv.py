@@ -38,15 +38,6 @@ world.print_rooms()
 
 player = Player(world.starting_room)
 
-# def opposite(direction):
-#     if direction == 'n':
-#         return 's'
-#     elif direction == 's':
-#         return 'n'
-#     elif direction == 'w':
-#         return 'e'
-#     else:
-#         return 'w'
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
@@ -134,12 +125,12 @@ else:
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
